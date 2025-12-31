@@ -1,0 +1,11 @@
+{
+  "serverUrl": "https://api-monitoring.devskin.com",
+  "apiKey": "your-api-key-here",
+  "tenantId": "your-tenant-id-here",
+  "clusterName": "production-cluster",
+  "collectionInterval": 60000,
+  "batchSize": 100,
+  "flushInterval": 10000,
+  "debug": false,
+  "kubeconfigPath": "/path/to/kubeconfig"
+}

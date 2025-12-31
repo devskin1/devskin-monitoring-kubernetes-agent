@@ -1,0 +1,32 @@
+{
+  "name": "@devskin/kubernetes-agent",
+  "version": "1.0.0",
+  "description": "DevSkin Kubernetes Agent - Cluster monitoring and metrics collection",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@kubernetes/client-node": "^0.20.0",
+    "axios": "^1.6.2",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "typescript": "^5.3.3"
+  },
+  "keywords": [
+    "kubernetes",
+    "monitoring",
+    "k8s",
+    "observability",
+    "metrics",
+    "cluster"
+  ],
+  "author": "DevSkin Team",
+  "license": "MIT"
+}
