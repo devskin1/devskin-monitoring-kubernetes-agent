@@ -1,0 +1,61 @@
+# Default values for devskin-kubernetes-agent
+
+# API Configuration (REQUIRED)
+apiKey: ""
+serverUrl: "https://api-monitoring.devskin.com"
+
+# Cluster Configuration
+clusterName: "my-cluster"
+environment: "production"
+
+# Collection Settings
+collectionInterval: 60000  # milliseconds
+batchSize: 100
+flushInterval: 10000
+debug: false
+
+# Image Configuration
+image:
+  repository: devskin/kubernetes-agent
+  tag: latest
+  pullPolicy: IfNotPresent
+
+# Service Account
+serviceAccount:
+  create: true
+  annotations: {}
+  name: "devskin-agent"
+
+# RBAC
+rbac:
+  create: true
+
+# Resources
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "100m"
+  limits:
+    memory: "256Mi"
+    cpu: "200m"
+
+# Node Selector
+nodeSelector: {}
+
+# Tolerations
+tolerations: []
+
+# Affinity
+affinity: {}
+
+# Pod Annotations
+podAnnotations: {}
+
+# Pod Security Context
+podSecurityContext: {}
+
+# Container Security Context
+securityContext: {}
+
+# Replica Count (should be 1 for cluster-wide monitoring)
+replicaCount: 1

@@ -1,0 +1,19 @@
+apiVersion: v2
+name: devskin-kubernetes-agent
+description: DevSkin Kubernetes monitoring agent for cluster observability
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+keywords:
+  - monitoring
+  - kubernetes
+  - observability
+  - metrics
+  - devskin
+home: https://devskin.com
+sources:
+  - https://github.com/devskin1/devskin-monitoring-kubernetes-agent
+maintainers:
+  - name: DevSkin Team
+    email: support@devskin.com
+icon: https://devskin.com/logo.png
