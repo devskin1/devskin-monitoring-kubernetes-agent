@@ -136,6 +136,22 @@ class ApiClient {
         }
     }
     /**
+     * Send HPA metrics
+     */
+    async sendHPAMetrics(hpas) {
+        if (hpas.length === 0)
+            return;
+        try {
+            if (this.debug) {
+                console.log(`[K8s Agent] Sending ${hpas.length} HPA metrics`);
+            }
+            await this.client.post('/api/v1/kubernetes/hpas', { hpas });
+        }
+        catch (error) {
+            console.error('[K8s Agent] Failed to send HPA metrics:', error.message);
+        }
+    }
+    /**
      * Send heartbeat
      */
     async sendHeartbeat(clusterId) {

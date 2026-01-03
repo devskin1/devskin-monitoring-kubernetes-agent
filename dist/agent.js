@@ -40,6 +40,10 @@ const api_client_1 = require("./api-client");
 const cluster_collector_1 = require("./collectors/cluster.collector");
 const node_collector_1 = require("./collectors/node.collector");
 const pod_collector_1 = require("./collectors/pod.collector");
+const deployment_collector_1 = require("./collectors/deployment.collector");
+const service_collector_1 = require("./collectors/service.collector");
+const event_collector_1 = require("./collectors/event.collector");
+const hpa_collector_1 = require("./collectors/hpa.collector");
 class KubernetesAgent {
     constructor(config) {
         this.isRunning = false;
@@ -69,6 +73,10 @@ class KubernetesAgent {
         this.clusterCollector = new cluster_collector_1.ClusterCollector(this.kubeConfig, this.config.clusterName);
         this.nodeCollector = new node_collector_1.NodeCollector(this.kubeConfig, this.config.clusterName);
         this.podCollector = new pod_collector_1.PodCollector(this.kubeConfig, this.config.clusterName);
+        this.deploymentCollector = new deployment_collector_1.DeploymentCollector(this.kubeConfig, this.config.clusterName);
+        this.serviceCollector = new service_collector_1.ServiceCollector(this.kubeConfig, this.config.clusterName);
+        this.eventCollector = new event_collector_1.EventCollector(this.kubeConfig, this.config.clusterName);
+        this.hpaCollector = new hpa_collector_1.HPACollector(this.kubeConfig, this.config.clusterName);
     }
     createLogger() {
         return winston.createLogger({
@@ -156,16 +164,24 @@ class KubernetesAgent {
         try {
             this.logger.debug('Collecting Kubernetes metrics...');
             // Collect all metrics in parallel
-            const [nodes, pods] = await Promise.all([
+            const [nodes, pods, deployments, services, events, hpas] = await Promise.all([
                 this.nodeCollector.collect(),
                 this.podCollector.collect(),
+                this.deploymentCollector.collect(),
+                this.serviceCollector.collect(),
+                this.eventCollector.collect(),
+                this.hpaCollector.collect(),
             ]);
             // Send metrics to backend
             await Promise.all([
                 this.apiClient.sendNodeMetrics(nodes),
                 this.apiClient.sendPodMetrics(pods),
+                this.apiClient.sendDeploymentMetrics(deployments),
+                this.apiClient.sendServiceMetrics(services),
+                this.apiClient.sendEvents(events),
+                this.apiClient.sendHPAMetrics(hpas),
             ]);
-            this.logger.debug(`Collected and sent: ${nodes.length} nodes, ${pods.length} pods`);
+            this.logger.debug(`Collected and sent: ${nodes.length} nodes, ${pods.length} pods, ${deployments.length} deployments, ${services.length} services, ${events.length} events, ${hpas.length} HPAs`);
         }
         catch (error) {
             this.logger.error(`Failed to collect metrics: ${error.message}`);

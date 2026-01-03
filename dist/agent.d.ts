@@ -12,6 +12,10 @@ export declare class KubernetesAgent {
     private clusterCollector;
     private nodeCollector;
     private podCollector;
+    private deploymentCollector;
+    private serviceCollector;
+    private eventCollector;
+    private hpaCollector;
     constructor(config: AgentConfig);
     private createLogger;
     start(): Promise<void>;

@@ -1,4 +1,4 @@
-import { ClusterInfo, NodeMetrics, PodMetrics, DeploymentMetrics, ServiceMetrics, NamespaceInfo, EventData } from './types';
+import { ClusterInfo, NodeMetrics, PodMetrics, DeploymentMetrics, ServiceMetrics, NamespaceInfo, K8sEvent, HPAMetrics } from './types';
 /**
  * API client for sending Kubernetes data to DevSkin backend
  */
@@ -35,7 +35,11 @@ export declare class ApiClient {
     /**
      * Send events
      */
-    sendEvents(events: EventData[]): Promise<void>;
+    sendEvents(events: K8sEvent[]): Promise<void>;
+    /**
+     * Send HPA metrics
+     */
+    sendHPAMetrics(hpas: HPAMetrics[]): Promise<void>;
     /**
      * Send heartbeat
      */

@@ -102,9 +102,15 @@ export interface DeploymentMetrics {
   replicas_desired: number;
   replicas_ready: number;
   replicas_available: number;
+  replicas_up_to_date: number;
   replicas_unavailable: number;
-  strategy_type: string;
+  strategy: string;
+  health: 'healthy' | 'degraded' | 'critical';
+  issues?: string[];
   labels: Record<string, string>;
+  selector_labels: Record<string, string>;
+  generation: number;
+  observed_generation: number;
   created_at: Date;
 }
 
@@ -112,20 +118,27 @@ export interface ServiceMetrics {
   service_name: string;
   namespace: string;
   cluster_name: string;
-  type: string;
+  service_type: string;
   cluster_ip?: string;
   external_ips?: string[];
-  ports: ServicePort[];
+  load_balancer_ip?: string;
+  load_balancer_hostname?: string;
+  ports?: ServicePort[];
   selector: Record<string, string>;
+  endpoint_count: number;
+  health: 'healthy' | 'warning' | 'critical';
+  issues?: string[];
   labels: Record<string, string>;
+  session_affinity?: string;
   created_at: Date;
 }
 
 export interface ServicePort {
   name?: string;
   port: number;
-  target_port: number | string;
+  targetPort?: string;
   protocol: string;
+  nodePort?: number;
 }
 
 export interface NamespaceInfo {
@@ -138,15 +151,44 @@ export interface NamespaceInfo {
   created_at: Date;
 }
 
-export interface EventData {
-  event_type: string;
-  reason: string;
-  message: string;
-  involved_object_kind: string;
-  involved_object_name: string;
+export interface K8sEvent {
+  event_name: string;
   namespace: string;
   cluster_name: string;
+  type: string;
+  reason: string;
+  message: string;
+  severity: 'info' | 'warning' | 'error';
+  object_kind?: string;
+  object_name?: string;
+  object_namespace?: string;
+  source_component?: string;
+  source_host?: string;
   count: number;
   first_timestamp: Date;
   last_timestamp: Date;
+  created_at: Date;
+}
+
+export interface HPAMetrics {
+  hpa_name: string;
+  namespace: string;
+  cluster_name: string;
+  target_kind: string;
+  target_name: string;
+  min_replicas: number;
+  max_replicas: number;
+  current_replicas: number;
+  desired_replicas: number;
+  metrics?: Array<{
+    type: string;
+    target_value?: number;
+    current_value?: number;
+    resource_name?: string;
+  }>;
+  health: 'healthy' | 'warning' | 'critical';
+  issues?: string[];
+  labels: Record<string, string>;
+  last_scale_time?: Date;
+  created_at: Date;
 }

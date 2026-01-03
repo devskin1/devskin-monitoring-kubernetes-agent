@@ -6,7 +6,8 @@ import {
   DeploymentMetrics,
   ServiceMetrics,
   NamespaceInfo,
-  EventData,
+  K8sEvent,
+  HPAMetrics,
 } from './types';
 
 /**
@@ -139,7 +140,7 @@ export class ApiClient {
   /**
    * Send events
    */
-  async sendEvents(events: EventData[]): Promise<void> {
+  async sendEvents(events: K8sEvent[]): Promise<void> {
     if (events.length === 0) return;
 
     try {
@@ -150,6 +151,23 @@ export class ApiClient {
       await this.client.post('/api/v1/kubernetes/events', { events });
     } catch (error: any) {
       console.error('[K8s Agent] Failed to send events:', error.message);
+    }
+  }
+
+  /**
+   * Send HPA metrics
+   */
+  async sendHPAMetrics(hpas: HPAMetrics[]): Promise<void> {
+    if (hpas.length === 0) return;
+
+    try {
+      if (this.debug) {
+        console.log(`[K8s Agent] Sending ${hpas.length} HPA metrics`);
+      }
+
+      await this.client.post('/api/v1/kubernetes/hpas', { hpas });
+    } catch (error: any) {
+      console.error('[K8s Agent] Failed to send HPA metrics:', error.message);
     }
   }
 
