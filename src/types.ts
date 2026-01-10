@@ -9,8 +9,8 @@ export interface AgentConfig {
   /** API key for authentication */
   apiKey: string;
 
-  /** Tenant ID */
-  tenantId: string;
+  /** Tenant ID (optional, extracted from API key if not provided) */
+  tenantId?: string;
 
   /** Cluster name */
   clusterName: string;

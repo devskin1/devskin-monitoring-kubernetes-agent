@@ -63,19 +63,19 @@ async function main() {
         config = {
             serverUrl: process.env.DEVSKIN_SERVER_URL || 'http://localhost:3000',
             apiKey: process.env.DEVSKIN_API_KEY || '',
-            tenantId: process.env.DEVSKIN_TENANT_ID || '',
+            tenantId: process.env.DEVSKIN_TENANT_ID,
             clusterName: process.env.CLUSTER_NAME || 'default-cluster',
             collectionInterval: parseInt(process.env.COLLECTION_INTERVAL || '60000'),
             debug: process.env.DEBUG === 'true',
             kubeconfigPath: process.env.KUBECONFIG,
         };
-        if (!config.apiKey || !config.tenantId) {
-            console.error('Error: API key and Tenant ID are required');
+        if (!config.apiKey) {
+            console.error('Error: API key is required');
             console.error('Either provide a config.json file or set environment variables:');
             console.error('  DEVSKIN_SERVER_URL');
             console.error('  DEVSKIN_API_KEY');
-            console.error('  DEVSKIN_TENANT_ID');
             console.error('  CLUSTER_NAME');
+            console.error('  DEVSKIN_TENANT_ID (optional, extracted from API key if not provided)');
             process.exit(1);
         }
     }

@@ -13,14 +13,18 @@ class ApiClient {
         this.apiKey = apiKey;
         this.tenantId = tenantId;
         this.debug = debug;
+        const headers = {
+            'Content-Type': 'application/json',
+            'X-DevSkin-API-Key': apiKey,
+        };
+        // Only add tenant ID header if provided
+        if (tenantId) {
+            headers['X-Tenant-ID'] = tenantId;
+        }
         this.client = axios_1.default.create({
             baseURL: serverUrl,
             timeout: 30000,
-            headers: {
-                'Content-Type': 'application/json',
-                'X-DevSkin-API-Key': apiKey,
-                'X-Tenant-ID': tenantId,
-            },
+            headers,
         });
     }
     /**

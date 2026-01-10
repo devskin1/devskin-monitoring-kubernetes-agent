@@ -5,9 +5,9 @@ import { ClusterInfo, NodeMetrics, PodMetrics, DeploymentMetrics, ServiceMetrics
 export declare class ApiClient {
     private client;
     private apiKey;
-    private tenantId;
+    private tenantId?;
     private debug;
-    constructor(serverUrl: string, apiKey: string, tenantId: string, debug?: boolean);
+    constructor(serverUrl: string, apiKey: string, tenantId?: string, debug?: boolean);
     /**
      * Register or update cluster
      */
