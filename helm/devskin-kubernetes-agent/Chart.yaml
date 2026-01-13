@@ -2,8 +2,8 @@ apiVersion: v2
 name: devskin-kubernetes-agent
 description: DevSkin Kubernetes monitoring agent for cluster observability
 type: application
-version: 1.0.0
-appVersion: "1.0.0"
+version: 1.0.1
+appVersion: "1.0.1"
 keywords:
   - monitoring
   - kubernetes
