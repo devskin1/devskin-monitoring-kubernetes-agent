@@ -2,8 +2,31 @@ apiVersion: v1
 entries:
   devskin-kubernetes-agent:
   - apiVersion: v2
+    appVersion: 1.0.1
+    created: "2026-01-13T00:28:01.730654387-03:00"
+    description: DevSkin Kubernetes monitoring agent for cluster observability
+    digest: 7839c8f0fdbcbc90de7f2395c26f43a9b7781c59b2d94eaec056247479d6293b
+    home: https://devskin.com
+    icon: https://devskin.com/logo.png
+    keywords:
+    - monitoring
+    - kubernetes
+    - observability
+    - metrics
+    - devskin
+    maintainers:
+    - email: support@devskin.com
+      name: DevSkin Team
+    name: devskin-kubernetes-agent
+    sources:
+    - https://github.com/devskin1/devskin-monitoring-kubernetes-agent
+    type: application
+    urls:
+    - https://devskin1.github.io/devskin-monitoring-kubernetes-agent/devskin-kubernetes-agent-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-12-31T09:49:27.143965833-03:00"
+    created: "2026-01-13T00:28:01.730364231-03:00"
     description: DevSkin Kubernetes monitoring agent for cluster observability
     digest: bc143e9f5f22dca2cf3cd2427f0e7c37420afe81b360ae6e3f408b0a43dcb857
     home: https://devskin.com
@@ -24,4 +47,4 @@ entries:
     urls:
     - https://devskin1.github.io/devskin-monitoring-kubernetes-agent/devskin-kubernetes-agent-1.0.0.tgz
     version: 1.0.0
-generated: "2025-12-31T09:49:27.143560645-03:00"
+generated: "2026-01-13T00:28:01.729876774-03:00"
